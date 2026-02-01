@@ -49,6 +49,7 @@ router.post('/', upload.array('images'), async (req, res) => {
     console.log('이미지 받기 완료')
     const { name, description } = req.body;
 
+    console.log(req.files);
     const base64Images = req.files.map(file => file.buffer.toString('base64'));
     
     console.log('3D로 변환 중')
@@ -65,16 +66,16 @@ router.post('/', upload.array('images'), async (req, res) => {
     console.log(`3D 변환 완료, 걸린 시간: ${(Date.now() - startTime) / 1000}`)
 
     console.log('glb 파일 저장 중')
-    const glbName = randomId();
-    const glbSavePath = path.join(__dirname, '../../glbs', `${glbName}.glb`);
+    const glbName = `${randomId()}.glb`;
+    const glbSavePath = path.join(__dirname, '../../glbs', glbName);
     await fs.promises.writeFile(glbSavePath, resFromModal.data);
     const glb = await Glb.insertOne({ name: glbName });
     console.log('glb 파일 저장 완료')
 
     console.log('이미지 파일 저장 중')
-    const imagesName = Array.from({ length: req.files.length }, () => randomId());
+    const imagesName = req.files.map(file => `${randomId()}${path.extname(file.originalname)}`);
     await Promise.all(req.files.map((file, idx) => {
-        const imageSavePath = path.join(__dirname, '../../images', `${imagesName[idx]}${path.extname(file.originalname)}`);
+        const imageSavePath = path.join(__dirname, '../../images', imagesName[idx]);
         return fs.promises.writeFile(imageSavePath, file.buffer);
     })) 
     const images = await Image.insertMany(req.files.map((file, idx) => {
