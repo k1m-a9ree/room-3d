@@ -31,7 +31,7 @@ Room3D/
 ```
 
 
-## 🚀 실행 가이드 (Getting Started)
+## 실행 가이드 (Getting Started)
 
 프로젝트 실행 방법은 두 가지가 있으며, **Docker Compose를 이용한 방법(Method 1)을 권장**합니다.
 
@@ -71,3 +71,8 @@ npm run dev
 * **Core AI**: VGGT (Facebook Research)
 * **Frontend**: (Client Framework, e.g., React/Vite/Three.js)
 * **Backend**: (Server Runtime, e.g., Node.js)
+
+
+## 추후 개선 사항
+* 로그인 및 가입 구현 - 이 프로젝트는 완전히 부동산 앱을 만들기보다는 사진을 3D로 변환시켜서 보여주는 시현 느낌이라 로그인은 주제에서 조금 벗어나는 느낌이라 보류하였음
+* 클라우드 서비스 - 24시간에 한 번 겨우 되는 Huggingface api에서 Modal로 플랫폼을 바꾼 이후로 변환이 훨씬 더 자유로워졌으나, 이는 어쨌거나 개인 테스트 입장이지 유저가 몇십 명만 몰려도 금전적 문제가 무조건 발생하게됨. 조금 더 가볍게 돌릴 수 있는 방법이나 다른 개선 방법이 필요함
